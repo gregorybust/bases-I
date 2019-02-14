@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcf80345-8224-47b5-9f0a-14a976715a17">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     To_char(mp.fecha_inventario,'MM') AS Mes,
+To_char(mp.fecha_inventario,'YYYY') AS año,     
+mp."cantidad_disponible",
+     m."nombre",
+     l."nombre" AS planta
+FROM
+     "material_pedido" mp INNER JOIN "material_proveedor" mpr ON mp."fk_material_proveedor" = mpr."id"
+     INNER JOIN "material" m ON mpr."fk_material" = m."id"
+     INNER JOIN "pedido_proveedor" pp ON mp."fk_pedido_proveedor" = pp."id"
+     INNER JOIN "planta" pl ON pp."fk_planta" = pl."id"
+     INNER JOIN "lugar" l ON pl."fk_lugar" = l."id"
+WHERE
+     mp.fecha_inventario IS NOT null
+     and mp.cantidad_disponible IS NOT null]]>
+	</queryString>
+	<field name="mes" class="java.lang.String"/>
+	<field name="año" class="java.lang.String"/>
+	<field name="cantidad_disponible" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="planta" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="73" splitType="Stretch">
+			<staticText>
+				<reportElement x="228" y="20" width="128" height="46" uuid="32c2cb54-2ad5-4fca-b07d-abe2794c35eb"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Inventario]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="19" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="2" width="100" height="20" uuid="fff8fe5a-1a7f-4c5a-af57-6feae299e54a"/>
+				<text><![CDATA[Material]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="2" width="100" height="20" uuid="183feb16-86b5-406c-b9f8-a5d55c204db1"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="0" width="100" height="20" uuid="fec4d1d2-3fcb-48c4-ab67-25febd6458e4"/>
+				<text><![CDATA[Planta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="2" width="100" height="20" uuid="8ee38db1-eb7d-4db1-a412-e13e1c227f4f"/>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="0" width="100" height="20" uuid="cec662c0-7945-495d-a7b5-b632f5690ef2"/>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="11" width="100" height="20" uuid="24cf8a43-146c-4e08-9d42-33dafeab5a7d"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="11" width="100" height="20" uuid="fff7a2c6-f656-42c1-9046-19bff8889791"/>
+				<textFieldExpression><![CDATA[$F{planta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="11" width="100" height="20" uuid="efa462e2-27d9-4598-bf51-fd8e3f9b06f4"/>
+				<textFieldExpression><![CDATA[$F{cantidad_disponible}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="469" y="11" width="100" height="20" uuid="6b5223b1-9302-49a3-8b37-2b5f3d21c138"/>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="11" width="100" height="20" uuid="609a05f4-977d-4d49-9b96-24f886b0dc68"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="14" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa277aff-148c-491c-87b7-9d8dddad378f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select pru.id id_prueba_material,pru.fecha_i,pru.fecha_f,per.cedula,(per.nombre_1 || '   '  || per.apellido_1)
+       nombre_apellido,per_pru.encargado,tel.numero numero_telefono,l.nombre,
+       (pru.fecha_f-pru.fecha_i) cantidad_dias,(extract (month from age(pru.fecha_f,pru.fecha_i))) cantidad_mes
+from personal per,personal_prueba per_pru,personal_zona per_zo,prueba pru,telefono tel,zona z,planta p,lugar l,
+     estatus s
+where  per_zo.fk_personal=per.id and per_pru.fk_personal_zona=per_zo.id
+       and per_pru.fk_prueba=pru.id and tel.fk_personal=per.id 
+       and per_zo.fk_zona=z.id and z.tipo_especialidad='prueba' and z.nombre='Zona de pruebas de material'
+       and z.fk_planta=p.id and p.fk_lugar=l.id and pru.fk_estatus=s.id and s.nombre='satisfactorio'
+       and (pru.fecha_f - pru.fecha_i) = (select min(pru_1.fecha_f - pru_1.fecha_i) 
+                                          from prueba pru_1,material_pedido mat_ped_1
+                                         where pru_1.fk_material_pedido=mat_ped_1.id)
+       order by pru.fecha_f desc,pru.id desc,per_pru.encargado desc
+       limit 3]]>
+	</queryString>
+	<field name="id_prueba_material" class="java.lang.Integer"/>
+	<field name="fecha_i" class="java.sql.Date"/>
+	<field name="fecha_f" class="java.sql.Date"/>
+	<field name="cedula" class="java.lang.Integer"/>
+	<field name="nombre_apellido" class="java.lang.String"/>
+	<field name="encargado" class="java.lang.String"/>
+	<field name="numero_telefono" class="java.math.BigDecimal"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cantidad_dias" class="java.lang.Integer"/>
+	<field name="cantidad_mes" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="0" width="518" height="69" uuid="7da800bd-a63f-4464-8a37-50c8f1b06db3"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Equipo Mas Eficiente en Pruebas de Materiales]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="0" width="42" height="20" uuid="a5d41a1b-31de-4ae3-9a77-9c3ed722d77d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Planta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="20" width="100" height="20" uuid="ddda010c-4e54-443c-91f3-b8a0db99b82a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id de la Prueba:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="40" width="100" height="20" uuid="2b19c7c6-a7eb-480a-8c86-19feb1c240aa"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="60" width="100" height="20" uuid="7585ca71-4746-4d3f-b798-6b40506c867d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Fin:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="80" width="100" height="20" uuid="14a3b101-e838-49b1-b1a1-08382a10750b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo en días:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="163" y="5" width="100" height="20" uuid="5803dec1-7ea0-4d4b-906f-e95241a391b3"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="25" width="100" height="20" uuid="e63dfac4-f479-4658-890b-889472ecd1cb"/>
+				<textFieldExpression><![CDATA[$F{id_prueba_material}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="45" width="100" height="20" uuid="9255ce99-baa2-46ce-bba1-5ca4cc81e8e7"/>
+				<textFieldExpression><![CDATA[$F{fecha_i}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="65" width="100" height="20" uuid="73ed0803-5727-48f9-90b4-c1af96cb283f"/>
+				<textFieldExpression><![CDATA[$F{fecha_f}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="85" width="100" height="20" uuid="77f3cc94-bff1-4dc3-afa8-9ec31dd6667b"/>
+				<textFieldExpression><![CDATA[$F{cantidad_dias}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="0598866f-c36b-40d8-89e7-3483a7eb4968"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="3f882aeb-ebb4-4627-beef-0a0182db03ed"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Y Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="0" width="100" height="20" uuid="fd4383ff-a229-4888-b81a-07d720ffb165"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="100" height="20" uuid="d5857e9a-39ce-41c7-8373-ddb0d02d60c1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="9f6bd416-8733-4182-8de5-bb05b4947ebe"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="09a28d54-d370-463d-832a-7110c742fee7"/>
+				<textFieldExpression><![CDATA[$F{nombre_apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="0" width="100" height="20" uuid="05b02af0-f4b1-4a39-819d-400973dbc992"/>
+				<textFieldExpression><![CDATA[$F{encargado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="100" height="20" uuid="e1fd96cd-9037-4759-be80-6963c826ebe6"/>
+				<textFieldExpression><![CDATA[$F{numero_telefono}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

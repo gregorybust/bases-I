@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb15a560-9922-4036-8d59-69a7efd6fdb2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select pier.tipo,pier.nombre,count(pier.id) cantidad
+from pieza_armada pier,prueba pru,estatus s
+where pru.fk_pieza_armada=pier.id and pru.fk_estatus=s.id 
+      and s.nombre='insatisfactorio'
+group by pier.tipo,pier.nombre]]>
+	</queryString>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="31" y="0" width="488" height="79" uuid="a9c060c5-6ea2-41b1-8ee8-3bea77210df4"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Cantidad de productos que no cumplieron con las pruebas de calidad]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="34" width="100" height="20" uuid="dba3bf34-f1f8-453c-b6b9-0a97c6132c1d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="34" width="100" height="20" uuid="24a72b88-3ae4-4200-8f58-0e62a1b4a0f0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de la Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="34" width="100" height="20" uuid="d714d2c6-6f03-487a-8bd0-d0e39b9f8b7f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Piezas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="0" width="100" height="20" uuid="b16dc789-12fa-48f1-9007-3bec1a9ee1f6"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="0" width="100" height="20" uuid="14239dc9-dfeb-4178-937d-de340a8aaf53"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="100" height="20" uuid="7fbfb198-a30a-49e4-8a55-961a7b439663"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="34" width="45" height="20" uuid="11ae45e5-37b2-4eaf-a2b5-952999f835a8"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="34" width="59" height="20" uuid="32424256-479c-4582-b935-84d573c84ce7"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="535" y="34" width="20" height="20" uuid="d2ed3642-ec9c-4b3f-a866-dd8b7e99e51c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

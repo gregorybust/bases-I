@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa32196b-1f30-4668-a40a-2dd080aeb2f9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select l.nombre planta,pier.tipo tipo_pieza,pier.nombre nombre_pieza,trunc(avg(pier.id),2) promedio
+from pieza_armada pier,prueba pru,estatus s,ubicacion_actual ubi,zona z,planta p,lugar l
+where pru.fk_pieza_armada=pier.id and pru.fk_estatus=s.id and s.nombre='satisfactorio'
+      and ubi.fk_pieza_armada=pier.id and ubi.fk_zona=z.id and z.fk_planta=p.id
+      and p.fk_lugar=l.id and l.nombre!='COLON' 
+group by l.nombre,pier.tipo,pier.nombre]]>
+	</queryString>
+	<field name="planta" class="java.lang.String"/>
+	<field name="tipo_pieza" class="java.lang.String"/>
+	<field name="nombre_pieza" class="java.lang.String"/>
+	<field name="promedio" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="35" y="11" width="503" height="68" uuid="71942c7f-e744-41e2-8373-eea6e1678d14"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Promedio de traslados entre las sedes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="28" y="2" width="100" height="20" uuid="beef0c9a-d3ed-4efc-9bfc-b0a063f5f9f0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Planta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="2" width="100" height="20" uuid="0b48c9d6-2a85-4867-9e43-bd7e45d23a67"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="2" width="100" height="20" uuid="a9e95ce1-e8b5-4749-9e8b-eb6c1ec871c5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de la Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="2" width="100" height="20" uuid="f949aa11-9e4b-4a1c-bbf1-688d2dbd4dfa"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio de Envios]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="28" y="9" width="100" height="20" uuid="eb798657-2cb8-46fb-b27b-fb24d9cd893d"/>
+				<textFieldExpression><![CDATA[$F{planta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="15" width="100" height="20" uuid="879b1402-d04e-4c7c-a859-c05deaba6815"/>
+				<textFieldExpression><![CDATA[$F{tipo_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="15" width="100" height="20" uuid="64326a25-03d4-43ea-a572-47a73075177c"/>
+				<textFieldExpression><![CDATA[$F{nombre_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="16" width="100" height="20" uuid="3fb2e32e-88ba-414c-ad27-c78916c2b88c"/>
+				<textFieldExpression><![CDATA[$F{promedio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

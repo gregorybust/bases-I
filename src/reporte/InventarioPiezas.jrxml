@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a6ad59e-6a3e-4d4c-af98-6e772df478e2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select cast(fecha.año as integer),cast(fecha.mes as integer),l.nombre planta,pier.tipo tipo_pieza,pier.nombre nombre_pieza,count(pier.id) cantidad 
+from lugar l,pieza_armada pier,ubicacion_actual ubi,prueba pru,zona z,planta p,estatus s,ensamblaje_avion ensa,
+     (select distinct extract(month from fecha_f) mes,id,extract(year from fecha_f) año  from prueba) fecha
+where p.fk_lugar=l.id and z.fk_planta=p.id and ubi.fk_zona=z.id and ubi.fk_pieza_armada=pier.id
+      and pru.fk_pieza_armada=pier.id and pru.fk_estatus=s.id  and s.nombre='satisfactorio'
+      and pier.fk_ensamblaje_avion=ensa.id and pru.id=fecha.id
+      and ensa.fk_estatus=(select s.id from estatus s where s.nombre='proceso')
+group by fecha.año,fecha.mes,l.nombre,pier.tipo,pier.nombre
+order by fecha.año,fecha.mes]]>
+	</queryString>
+	<field name="año" class="java.lang.Integer"/>
+	<field name="mes" class="java.lang.Integer"/>
+	<field name="planta" class="java.lang.String"/>
+	<field name="tipo_pieza" class="java.lang.String"/>
+	<field name="nombre_pieza" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="122" y="0" width="332" height="64" uuid="93ef2454-8b15-47c0-85fc-686059e11cb0"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Inventario Mensual de Piezas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="15" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="45" height="20" uuid="786164a2-8988-477b-8007-7e6ec4f2cf32"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="0" width="48" height="20" uuid="33c1bf24-ecaf-4c71-ac5c-8d1fed74d3e2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="0" width="100" height="20" uuid="baea6c15-acc4-4023-a522-055ae1b875f9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Planta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="100" height="20" uuid="c020a25d-f3cd-442f-a68e-0884281e6d78"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="0" width="100" height="20" uuid="db85dee8-8c97-4306-9331-7f3629cf347f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="0" width="87" height="20" uuid="64dbfb6c-5cd8-4eaf-997a-ec0621450640"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="45" height="20" uuid="b4279946-40e8-4cb2-ab9a-87c039d9528f"/>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="48" height="20" uuid="a3f6b4b7-a6c3-4f4f-9be6-472305392acc"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="0" width="100" height="20" uuid="bb090078-2018-4a4b-964d-933fb71d6153"/>
+				<textFieldExpression><![CDATA[$F{planta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="0" width="100" height="20" uuid="198be58b-5406-4c0c-8fe9-1de47679ce6d"/>
+				<textFieldExpression><![CDATA[$F{tipo_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="100" height="20" uuid="ee58b369-a225-456b-9957-f46c53a6efc1"/>
+				<textFieldExpression><![CDATA[$F{nombre_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="87" height="20" uuid="96c695c7-3cb4-4996-ba19-3fa395bc23ce"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="34" width="45" height="20" uuid="bc87492d-bd80-4737-8851-4b937052971a"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="34" width="59" height="20" uuid="8dd389a8-b56c-4027-8580-5ac615488360"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="535" y="34" width="20" height="20" uuid="4d5d4586-3f24-4202-8246-86432c847f10"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

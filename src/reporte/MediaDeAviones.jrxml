@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16258130-14bc-4b85-addb-3af1d326d386">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select cast(media.mes as integer) mes,avi.nombre modelo,trunc(avg(media.cantidad_pedidos),2) cantidad_media
+from avion avi,(select avi.nombre,fecha.mes, count(avi.id) as cantidad_pedidos
+            from avion avi,(select distinct extract(month from fecha_f) mes,fk_avion  from ensamblaje_avion) fecha,
+                pedido_cliente ped_cli
+            where avi.fk_pedido_cliente=ped_cli.id and fecha.fk_avion=avi.id
+            group by fecha.mes,avi.nombre) media 
+where avi.nombre=media.nombre
+group by media.mes,avi.nombre
+order by media.mes]]>
+	</queryString>
+	<field name="mes" class="java.lang.Integer"/>
+	<field name="modelo" class="java.lang.String"/>
+	<field name="cantidad_media" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="0" width="528" height="79" uuid="b47a8492-07cd-46ed-95da-741157952ae3"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Cantidad media de aviones producida mensualmente según el modelo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="c8850a83-3262-4dcb-9308-784b59f3ec56"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="0" width="100" height="20" uuid="b6713389-3648-4974-8c98-96dbf64e40f4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="0" width="100" height="20" uuid="0216766e-0674-4729-af01-18748c232a88"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad Media]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="14" height="20" uuid="4ad2da58-1a3b-4980-9407-3e6c05f55441"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="0" width="100" height="20" uuid="f893d892-8fb4-411c-a36c-116cc0c2e5f2"/>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="0" width="100" height="20" uuid="441fc5f6-85d1-4d3b-9725-43529ca04a8f"/>
+				<textFieldExpression><![CDATA[$F{cantidad_media}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="34" width="44" height="20" uuid="5f195432-fa0e-46fd-8b2e-5631386104df"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="34" width="48" height="20" uuid="33043b6f-d757-438d-894b-918b751b566d"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="506" y="34" width="49" height="20" uuid="9ba5d411-aa1c-48cc-8d54-fe3e044f3ea9"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

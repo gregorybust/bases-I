@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="88c180ba-1edb-4d3c-aa78-5f47bdab2c16">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select trunc(avg(pru.fecha_f-pru.fecha_i),2)|| '  dias' promedio,count(pru.id) cantidad_pruebas,l.nombre planta
+from prueba pru,estatus s,pieza_armada pier,ubicacion_actual ubi,zona z,planta p,lugar l
+where pru.fk_estatus=s.id and s.nombre='satisfactorio' and pru.fk_pieza_armada=pier.id
+      and ubi.fk_pieza_armada=pier.id and ubi.fk_zona=z.id and z.fk_planta=p.id and p.fk_lugar=l.id
+group by l.nombre
+order by promedio,cantidad_pruebas desc
+limit 1]]>
+	</queryString>
+	<field name="promedio" class="java.lang.String"/>
+	<field name="cantidad_pruebas" class="java.lang.Long"/>
+	<field name="planta" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="545" height="56" uuid="c49b1c5f-30aa-460a-8edd-c80474ad574a"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[ Planta más Eficiente en Pruebas de Piezas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="10" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="071adfd0-f7e8-4eb8-b057-85462a6e2227"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Planta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="2" width="100" height="20" uuid="b265c435-ad02-40ac-adda-86229528d538"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio en Dias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="2" width="100" height="20" uuid="771cd195-9310-41af-829a-692fe0e38841"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Pruebas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="bb6f7848-dad8-4474-abc5-1c8138c38551"/>
+				<textFieldExpression><![CDATA[$F{planta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="0" width="100" height="20" uuid="f65734d9-d1b5-4bed-92d7-22b7bb75d0bf"/>
+				<textFieldExpression><![CDATA[$F{promedio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="0" width="100" height="20" uuid="dab36ff1-fc5c-4831-b864-929e86b212ab"/>
+				<textFieldExpression><![CDATA[$F{cantidad_pruebas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

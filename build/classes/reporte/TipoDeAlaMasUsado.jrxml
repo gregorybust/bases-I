@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="80582123-c3f2-4b46-8e6c-5dc9cd3b6603">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="12"/>
+	<queryString>
+		<![CDATA[select pie.tipo,pie.nombre||' :' nombre,count(pie.id)||' utilizada' cantidad_pedido
+from pieza pie,avion_pieza avi_pie,ensamblaje_pieza ense
+where ense.fk_avion_pieza=avi_pie.id and avi_pie.fk_pieza=pie.id and pie.tipo='ala'
+group by pie.tipo,pie.nombre
+order by count(pie.id) desc
+limit 1]]>
+	</queryString>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cantidad_pedido" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="50" y="11" width="468" height="54" uuid="3d906239-e7ab-457c-8a7f-47625cd29484"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[El tipo de alas más utilizado en los aviones]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="18" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="60" y="0" width="149" height="20" uuid="26e6997f-9d05-4535-ad56-25c093ca711d"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="0" width="100" height="20" uuid="4f2136c2-2b59-4fd7-b642-233d98aa40e9"/>
+				<textFieldExpression><![CDATA[$F{cantidad_pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

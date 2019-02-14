@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="06271c3a-0b42-4323-af3f-9dc0f0dd0beb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     modelo."id" AS id,
+     modelo."nombre" AS nombre,
+     modelo."num_denasa" AS num_denasa,
+     modelo."num_estandar" AS num_estandar,
+     modelo."num_piloto" AS num_piloto,
+     modelo."num_copiloto" AS num_copiloto,
+     modelo."velecidad_max" AS velecidad_max,
+     modelo."max_combustible" AS max_combustible,
+     modelo."longitud" AS longitud,
+     modelo."alcance_carga_max" AS alcance_carga_max
+FROM
+     "modelo" modelo]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="num_piloto" class="java.lang.Integer"/>
+	<field name="num_copiloto" class="java.lang.Integer"/>
+	<field name="num_estandar" class="java.lang.Integer"/>
+	<field name="num_denasa" class="java.lang.Integer"/>
+	<field name="longitud" class="java.lang.Float"/>
+	<field name="alcance_carga_max" class="java.lang.Float"/>
+	<field name="velecidad_max" class="java.lang.Float"/>
+	<field name="max_combustible" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="dc7e0cb8-5d83-4f94-a09f-edab345b172c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Gray Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="46" width="157" height="22" uuid="efd62aa6-018f-4736-8164-a4411703a4cd"/>
+				<text><![CDATA[Leaf Gray SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="6b65759c-8509-4ded-ac80-27bfc555c6c4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="32" height="15" uuid="f557c38c-6bfe-4fed-8835-4bbde2a92e87"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="32" y="19" width="55" height="15" uuid="2b069f7f-d141-4dd9-8676-995a56f78f32"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="87" y="19" width="42" height="15" uuid="88c5ff9f-4f2f-4f10-adaa-454865b63ebf"/>
+				<text><![CDATA[Pilotos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="129" y="19" width="55" height="15" uuid="2a488c37-5f73-49b9-9ff3-f32ac154374f"/>
+				<text><![CDATA[Copilotos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="20" width="64" height="15" uuid="573143f6-4ea7-4582-b9f1-78e9240c3630"/>
+				<text><![CDATA[C estandar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="248" y="20" width="67" height="15" uuid="08b5bf7f-b844-4d2d-bd68-263aff3b4bc5"/>
+				<text><![CDATA[ C principal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="315" y="19" width="55" height="15" uuid="2f4d75cf-53c8-407c-9ac9-54d30061de52"/>
+				<text><![CDATA[longitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="370" y="20" width="63" height="15" uuid="8edaad3f-080d-4528-84c6-196b324cf117"/>
+				<text><![CDATA[Carga max]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="433" y="20" width="62" height="15" uuid="a2e0cc7f-c1e1-45b0-9f89-80c8cf23debb"/>
+				<text><![CDATA[ Velocidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="495" y="19" width="80" height="15" uuid="e3d27fbb-6dc2-4d17-aee4-915bc1a86939"/>
+				<text><![CDATA[Combustible max]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="847567ea-eb32-4330-9c8b-9cc74552b0c6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="32" height="15" uuid="c22c9792-d1b2-4176-91c3-4cba8ce233ce"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="32" y="0" width="55" height="15" uuid="74be06b2-e1fc-42ca-a5ab-e81be774b4e1"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="184" y="0" width="64" height="15" uuid="d9c08adc-6d89-4ce3-aced-e2086deeb7b3"/>
+				<textFieldExpression><![CDATA[$F{num_estandar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="248" y="0" width="67" height="15" uuid="8a6569b8-ef96-4895-911d-9837801cba36"/>
+				<textFieldExpression><![CDATA[$F{num_denasa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="315" y="1" width="55" height="15" uuid="4008c0db-2a0f-4830-aac6-9649183ce95c"/>
+				<textFieldExpression><![CDATA[$F{longitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="370" y="1" width="63" height="15" uuid="9693582e-3ee7-4fdf-8603-4b7555565736"/>
+				<textFieldExpression><![CDATA[$F{alcance_carga_max}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="433" y="0" width="55" height="15" uuid="c45576f1-4aaa-42e4-9f06-8630a424a0e1"/>
+				<textFieldExpression><![CDATA[$F{velecidad_max}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="495" y="0" width="70" height="15" uuid="b0bad2e3-1b06-4fd3-a95e-92234639e245"/>
+				<textFieldExpression><![CDATA[$F{max_combustible}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="87" y="1" width="42" height="15" uuid="4e105db0-47df-44b3-a6c9-f4fbcad04ac4"/>
+				<textFieldExpression><![CDATA[$F{num_piloto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="129" y="0" width="55" height="15" uuid="23123120-cdf1-466c-9c74-091ad412b987"/>
+				<textFieldExpression><![CDATA[$F{num_copiloto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="eb13c211-ea57-4ce4-9ae3-02493919a0c5"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="98298b63-911e-41a2-9d46-6222d8cdd12e"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="0bcc1a12-710b-4904-b4ed-7f7e459816de"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="7395ccf7-1bd3-4a88-af18-f68329f6c93a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

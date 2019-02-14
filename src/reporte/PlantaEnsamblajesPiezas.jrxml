@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c1d9f3b-b8d4-486b-aa0c-1f67480d8636">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select trunc(avg(ense.fecha_f-ense.fecha_i),2)|| '  dias' promedio ,count(ense.id) cantidad_ensamblajes,l.nombre planta
+from ensamblaje_pieza ense,estatus s,planta p,lugar l,zona z,pieza_armada pier,ubicacion_actual ubi
+where ense.fk_estatus=s.id and s.nombre='finalizado' and pier.fk_ensamblaje_pieza=ense.id and 
+      ubi.fk_pieza_armada=pier.id and ubi.fk_zona=z.id and z.fk_planta=p.id and p.fk_lugar=l.id
+group by l.nombre
+order by promedio,cantidad_ensamblajes desc
+limit 1]]>
+	</queryString>
+	<field name="promedio" class="java.lang.String"/>
+	<field name="cantidad_ensamblajes" class="java.lang.Long"/>
+	<field name="planta" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="542" height="79" uuid="01086b19-5e2e-4463-9e4d-5715756210e4"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[ Planta más Eficiente en Ensamblajes de Piezas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="88035712-568d-40e8-9be8-0547d7085ec9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Planta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="0" width="100" height="20" uuid="217f1c6a-50b5-40d5-bae1-6010a6873f10"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio en Días]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="0" width="143" height="20" uuid="0dbc2b9d-7ad3-4d54-b1d5-ae5b77e4eea4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Ensamblajes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="11" width="100" height="20" uuid="b6bff16e-40d7-4866-8ca3-2641661c2400"/>
+				<textFieldExpression><![CDATA[$F{planta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="11" width="100" height="20" uuid="4b0a2ad5-662f-47b6-82eb-bca0ef0730e6"/>
+				<textFieldExpression><![CDATA[$F{promedio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="11" width="100" height="20" uuid="012bfcd9-8b4c-4357-ab96-2fc97deff1f1"/>
+				<textFieldExpression><![CDATA[$F{cantidad_ensamblajes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

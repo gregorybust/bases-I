@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82b114aa-c7aa-4213-b3d7-24b309c58562">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="88"/>
+	<queryString>
+		<![CDATA[select ense.id id_ensamblaje_pieza,ense.fecha_i,ense.fecha_f,per.cedula,(per.nombre_1 || '   '  || per.apellido_1)
+       nombre_apellido,per_ense.encargado,tel.numero numero_telefono,l.nombre planta,
+      (ense.fecha_f-ense.fecha_i)  cantidad_dias,(extract(month from age(ense.fecha_f,ense.fecha_i))) cantidad_mes
+from personal per,personal_ensamblaje per_ense,personal_zona per_zo,ensamblaje_pieza ense,telefono tel,
+     estatus s,zona z,planta p,lugar l
+where  per_zo.fk_personal=per.id and per_ense.fk_personal_zona=per_zo.id
+       and per_ense.fk_ensamblaje_pieza=ense.id and tel.fk_personal=per.id
+       and ense.fk_estatus=s.id and s.nombre='finalizado'  and per_zo.fk_zona=z.id 
+       and z.fk_planta=p.id and p.fk_lugar=l.id
+       and (ense.fecha_f - ense.fecha_i) = (select min(fecha_f - fecha_i) from ensamblaje_pieza)
+       order by ense.fecha_f desc,ense.id desc,per_ense.encargado desc
+       limit 3]]>
+	</queryString>
+	<field name="id_ensamblaje_pieza" class="java.lang.Integer"/>
+	<field name="fecha_i" class="java.sql.Date"/>
+	<field name="fecha_f" class="java.sql.Date"/>
+	<field name="cedula" class="java.lang.Integer"/>
+	<field name="nombre_apellido" class="java.lang.String"/>
+	<field name="encargado" class="java.lang.String"/>
+	<field name="numero_telefono" class="java.math.BigDecimal"/>
+	<field name="planta" class="java.lang.String"/>
+	<field name="cantidad_dias" class="java.lang.Integer"/>
+	<field name="cantidad_mes" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="41" uuid="fbb8ab8a-11f4-4d87-a6b9-e24a319184d2"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Equipo Mas Eficiente en Ensamblajes de Piezas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="143" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="5" width="42" height="20" uuid="0a364581-4e1a-40b7-ad7a-5156ab4006d3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Planta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="5" width="100" height="20" uuid="3698f9cb-ae2d-475d-8089-483074873309"/>
+				<textFieldExpression><![CDATA[$F{planta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="25" width="100" height="20" uuid="827dadf9-51df-494a-bb55-47b967c87914"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id del ensamblaje:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="25" width="100" height="20" uuid="79f8b554-94ee-467f-a356-36c6a3d4b8b1"/>
+				<textFieldExpression><![CDATA[$F{id_ensamblaje_pieza}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="45" width="100" height="20" uuid="aeffb1fb-89c7-47f3-9453-32de55906ad3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="45" width="100" height="20" uuid="86bc8e49-a02f-4ed8-9e22-a366e1fadf61"/>
+				<textFieldExpression><![CDATA[$F{fecha_i}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="65" width="100" height="20" uuid="0fbd0539-5fc8-4284-8741-f27f68d305f9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Fin:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="65" width="100" height="20" uuid="0a2f7d76-933b-43e7-8627-01a426f05608"/>
+				<textFieldExpression><![CDATA[$F{fecha_f}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="85" width="100" height="20" uuid="c2c877a0-a600-4309-aa2e-4995647dee42"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo en días:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="85" width="100" height="20" uuid="851bbf57-1936-4213-9ff9-cc216128e98a"/>
+				<textFieldExpression><![CDATA[$F{cantidad_dias}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="0" width="100" height="20" uuid="ad7e6cac-8928-4dfc-bcd9-d76be453f30f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="0" width="100" height="20" uuid="870b66b7-39af-486e-82eb-c7972966fb9e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Y Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="0" width="100" height="20" uuid="3835e4a9-3323-4b3c-b306-b9287af4a6fd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="0" width="100" height="20" uuid="1b5ad6d3-f517-45cf-ab1e-86a5ea7937ed"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="13" y="0" width="100" height="20" uuid="72fa0b8c-f871-4a9a-8212-642813c15076"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="0" width="100" height="20" uuid="c180c2e4-a203-4b67-a68b-4e2119d6cd89"/>
+				<textFieldExpression><![CDATA[$F{nombre_apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="0" width="100" height="20" uuid="e890d940-b9db-4e3b-a391-6451cbc0b26a"/>
+				<textFieldExpression><![CDATA[$F{encargado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="0" width="100" height="20" uuid="a7c11391-724a-4889-b84e-d34eb53b74b4"/>
+				<textFieldExpression><![CDATA[$F{numero_telefono}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

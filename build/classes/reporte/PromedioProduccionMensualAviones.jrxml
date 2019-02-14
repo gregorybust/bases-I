@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e836eb77-10ba-47c9-b89a-30091cb536b6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="25"/>
+	<queryString>
+		<![CDATA[select nombre nombre_modelo,(avg (extract(month from age(ensa.fecha_f,ensa.fecha_i)))) promedio_meses,count(ensa.id) cantidad
+from avion a,ensamblaje_avion ensa
+where ensa.fk_avion=a.id 
+group by a.nombre
+order by a.nombre]]>
+	</queryString>
+	<field name="nombre_modelo" class="java.lang.String"/>
+	<field name="promedio_meses" class="java.lang.Double"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="520" height="49" uuid="6749d8f5-a809-4b39-8f48-ef7ca702dcde"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Promedio de Producción Mensual de Aviones]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="100" height="20" uuid="09b06673-fdc4-49c6-9379-42e4841f2148"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="1" width="100" height="20" uuid="a1db2f63-41ba-469b-b4ee-d993104e07e2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio en Meses]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="1" width="100" height="20" uuid="029c868f-270e-4ccb-b2a3-1a89fefb29a2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Aviones]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="15f6e604-c270-4eac-a2a7-dffc2563cbd6"/>
+				<textFieldExpression><![CDATA[$F{nombre_modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="20" height="20" uuid="cccc576b-0d72-4a9a-89de-30e5b76e8810"/>
+				<textFieldExpression><![CDATA[$F{promedio_meses}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="2da9e475-b60d-4473-b856-f4141bd905da"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="118" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="98" width="100" height="20" uuid="63428c50-17f4-4c92-a849-b0776242f76e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="98" width="53" height="20" uuid="3de1d979-f798-425e-9e97-e4fbeb6ee5ba"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="504" y="98" width="51" height="20" uuid="8a78300d-b484-4607-af1c-c4376498cf12"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

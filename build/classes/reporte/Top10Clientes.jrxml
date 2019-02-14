@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20c63002-786d-4ebf-82cf-9c0f9e6188c4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parametroFecha" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[select  cli.nombre,cli.paginaweb,cli.fecha_operacion,cli.otro_dato,
+        cli.monto_acreditado,cast(fecha.año as integer),count(cli.id) cantidad_compras,tel.numero
+from cliente cli,pedido_cliente ped_cli,(select extract(year from fecha_pedido) año,id from pedido_cliente) fecha,
+     telefono tel
+where ped_cli.fk_cliente=cli.id and ped_cli.id=fecha.id and 
+    $P{parametroFecha}  in (select extract(year from p1.fecha_pedido)  from pedido_cliente p1 where p1.id=ped_cli.id) 
+    and tel.fk_cliente=cli.id
+group by  fecha.año,cli.nombre,cli.paginaweb,cli.fecha_operacion,cli.otro_dato,cli.monto_acreditado,tel.numero 
+order by fecha.año,count(cli.id) desc
+limit 10;]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="paginaweb" class="java.lang.String"/>
+	<field name="fecha_operacion" class="java.sql.Date"/>
+	<field name="otro_dato" class="java.lang.String"/>
+	<field name="monto_acreditado" class="java.lang.Integer"/>
+	<field name="año" class="java.lang.Integer"/>
+	<field name="cantidad_compras" class="java.lang.Long"/>
+	<field name="numero" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="0" width="427" height="59" uuid="3e6691ab-f681-4814-80d9-f6ed8d42fd9a"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Nuestros Mejores 10 Clientes Por Año]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="0" width="40" height="20" uuid="1d5b4ff4-340a-4af8-9580-e0060bd26396"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="0" width="61" height="20" uuid="2b93654f-6d34-4133-9387-49a55460795f"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Pagina Web]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="0" width="31" height="20" uuid="805e37fa-2420-4531-9340-b6a11a8dcc19"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="0" width="106" height="20" uuid="cc604924-bb3b-4255-809a-45379d6e5178"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Pedidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="1" width="51" height="20" uuid="4b072993-6462-420f-bbd6-3dd42a5e6e78"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="60" y="8" width="56" height="20" uuid="9ac3306c-cfd6-4697-bde6-c7fe67fe65a1"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="8" width="61" height="20" uuid="a0833330-bec9-457d-8705-6c18e3f033dc"/>
+				<textFieldExpression><![CDATA[$F{paginaweb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="8" width="31" height="20" uuid="32b0314d-324f-4357-a3f3-cad97336b43c"/>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="0" width="88" height="20" uuid="6c624696-b0f1-4854-a634-3e6e4d4e23bd"/>
+				<textFieldExpression><![CDATA[$F{cantidad_compras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="8" width="70" height="20" uuid="53dd8b0a-d375-491c-8751-79be59681eb9"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

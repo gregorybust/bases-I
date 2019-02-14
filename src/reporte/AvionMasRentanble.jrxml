@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13cae458-75fe-4ad6-9875-f3e472ba0c17">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select avi.id id_avion,avi.nombre modelo,ensa.fecha_i,ensa.fecha_f,minimo.cantidad_dias
+from ensamblaje_avion ensa,avion avi,estatus s,(select avi.nombre ,min(ensa.fecha_f - ensa.fecha_i) cantidad_dias
+                                               from ensamblaje_avion ensa,avion avi,estatus s
+                                               where ensa.fk_avion=avi.id and ensa.fk_estatus=s.id
+                                               and s.nombre='finalizado'
+                                               group by avi.nombre) minimo
+where ensa.fk_avion=avi.id and ensa.fk_estatus=s.id
+      and s.nombre='finalizado' and avi.nombre=minimo.nombre and (ensa.fecha_f - ensa.fecha_i)=minimo.cantidad_dias
+      order by ensa.fecha_f desc]]>
+	</queryString>
+	<field name="id_avion" class="java.lang.Integer"/>
+	<field name="modelo" class="java.lang.String"/>
+	<field name="fecha_i" class="java.sql.Date"/>
+	<field name="fecha_f" class="java.sql.Date"/>
+	<field name="cantidad_dias" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="532" height="79" uuid="cd437d7f-abf1-4827-9d9c-9952b71f8e73"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Aviones más rentables en base al cumplimiento de las fechas durante a su producción]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="75" y="3" width="100" height="20" uuid="63f9b99f-5f7e-46da-941c-74f5ad83244a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="0" width="140" height="20" uuid="cef4938c-be21-40f8-bf8b-71ac1f99ee16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicio de Ensamblaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="3" width="137" height="20" uuid="2818a1a6-0b82-4e39-bf86-0ec54de170f5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Final de Ensamblaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="0" width="100" height="20" uuid="4ccb3e34-77cc-4ac8-b4ca-985acf14a397"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Días]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="3" width="75" height="20" uuid="3c6cdc63-25f0-4a4a-915d-1086481da86c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id del Avión]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="75" y="0" width="100" height="20" uuid="bfef6450-d1e6-49ec-9ebe-774496b94956"/>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="100" height="20" uuid="ee817cdd-b0b4-45b7-93ce-6d72791e4428"/>
+				<textFieldExpression><![CDATA[$F{fecha_i}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="0" width="100" height="20" uuid="682ab871-49c9-4955-b97a-0d8881b55805"/>
+				<textFieldExpression><![CDATA[$F{fecha_f}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="06ef5d07-3a3b-4a71-8609-c9fd8db20752"/>
+				<textFieldExpression><![CDATA[$F{cantidad_dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="75" height="20" uuid="aef9897e-6395-49e1-98e9-e9333bc0c5f1"/>
+				<textFieldExpression><![CDATA[$F{id_avion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="55" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="34" width="45" height="20" uuid="128c2c52-60ae-4ddc-a9f5-f7e4ad73feb5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="473" y="34" width="59" height="20" uuid="bad43277-23ec-49dd-8159-9616522a306c"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="34" width="20" height="20" uuid="114dbae5-bc86-4b97-93c6-6249b34fb015"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

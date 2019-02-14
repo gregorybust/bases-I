@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16e97912-f0ae-4ce3-8fc9-08ff25b46836">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select pie.tipo tipo_pieza,pie.nombre nombre_pieza,count(pie.id) cantidad_pedido
+from pieza pie,avion_pieza avi_pie,ensamblaje_pieza ense
+where ense.fk_avion_pieza=avi_pie.id and avi_pie.fk_pieza=pie.id
+group by pie.tipo,pie.nombre
+order by count(pie.id) desc
+limit 1]]>
+	</queryString>
+	<field name="tipo_pieza" class="java.lang.String"/>
+	<field name="nombre_pieza" class="java.lang.String"/>
+	<field name="cantidad_pedido" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement x="94" y="0" width="388" height="62" uuid="ba52cb1f-a69c-42d5-8f05-85315481032c"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Producto más pedido al inventario]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="933be099-e338-4718-97bf-e302e6a411e5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="0" width="100" height="20" uuid="aa9785cd-bbd1-4f3f-8069-931d5a102eb2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de la Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="0" width="139" height="20" uuid="7ce3e7f5-c56f-4388-a536-911ed9058dfc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de veces Pedida]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="2ea3cb2f-6138-4246-ada3-790821aa3412"/>
+				<textFieldExpression><![CDATA[$F{tipo_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="0" width="100" height="20" uuid="6d3437a0-4cf8-4d74-8d9c-bcfe2a909edf"/>
+				<textFieldExpression><![CDATA[$F{nombre_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="0" width="100" height="20" uuid="9b526feb-1a8e-4b3a-a19d-2f9f92b04e2a"/>
+				<textFieldExpression><![CDATA[$F{cantidad_pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="34" width="52" height="20" uuid="700b5fec-261f-4b35-9b39-8345927b7ec8"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="34" width="100" height="20" uuid="924a31b7-3081-422d-acf8-f1612aa6ef8f"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="456" y="34" width="100" height="20" uuid="9b320942-86a9-43ce-a646-cf26acaf0c13"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

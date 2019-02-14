@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="26f26c59-9148-4370-baf1-662bfc247e38">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="New Dataset 1" uuid="16944652-d4ab-4fcf-b69c-45e2418f1459"/>
+	<queryString>
+		<![CDATA[select fecha.año,a.id id_avion,c.nombre cliente,ens.fecha_i,ens.fecha_f,s.nombre estatus,a.nombre modelo
+from avion a,pedido_cliente p,ensamblaje_avion ens,estatus s,cliente c,
+     (select extract(year from fecha_f) año,id from ensamblaje_avion)  fecha
+where p.id=a.fk_pedido_cliente and a.id=ens.fk_avion and s.id=ens.fk_estatus and c.id=p.fk_cliente
+      and ens.id=fecha.id
+order by fecha.año desc,ens.fecha_f desc,a.id desc]]>
+	</queryString>
+	<field name="año" class="java.lang.Double"/>
+	<field name="id_avion" class="java.lang.Integer"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="fecha_i" class="java.sql.Date"/>
+	<field name="fecha_f" class="java.sql.Date"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="modelo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="129" y="0" width="327" height="59" uuid="5fda8527-415a-4c45-9770-f9793798ac23"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[ProduccIón Anual De Aviones]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="119" height="20" uuid="06513f25-912a-4994-9faa-ce798740ce7a"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Año de Producción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="9" width="76" height="20" uuid="cdf32b28-8a9d-46ee-a76f-f2c0cdab2519"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="9" width="148" height="20" uuid="14098c71-da50-4afa-8a56-2f9f3f969642"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicio de Ensamblado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="9" width="135" height="20" uuid="ff116cd9-54e0-4868-9273-4b11de72fb68"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Final de Ensamblado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="493" y="9" width="62" height="20" uuid="bd0e6856-eda0-4385-a685-9a1d2663fdcb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="25" height="20" uuid="218b9dfa-18b8-45af-99ea-cc66430b58c9"/>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="2" width="76" height="20" uuid="b1664d3a-4046-4155-b6aa-b977e32951b0"/>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="2" width="100" height="20" uuid="e8ce2481-8c61-4f1b-a774-3ae76c2dba9c"/>
+				<textFieldExpression><![CDATA[$F{fecha_i}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="2" width="100" height="20" uuid="8ab90182-4e78-42b5-8673-971ee8c95a5c"/>
+				<textFieldExpression><![CDATA[$F{fecha_f}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="0" width="62" height="20" uuid="e4c42dfb-c827-424f-a625-754930957d42"/>
+				<textFieldExpression><![CDATA[$F{estatus}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="107" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="87" width="100" height="20" uuid="d6780e0c-b8ac-4bdd-9ccd-7eac5a454fc5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="87" width="59" height="20" uuid="319f9858-4b5d-436b-a4cc-953a916c9a8b"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="502" y="87" width="20" height="20" uuid="924f8bf1-6005-48eb-9797-19f039de151e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="1830" pageHeight="595" orientation="Landscape" columnWidth="1790" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ef2c7995-064f-4246-92ad-294ac0b5369d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="897"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     modelo."nombre" AS modelo_nombre,
+     modelo."num_denasa" AS modelo_num_denasa,
+     modelo."num_estandar" AS modelo_num_estandar,
+     modelo."num_piloto" AS modelo_num_piloto,
+     modelo."num_auxiliar" AS modelo_num_auxiliar,
+     modelo."num_copiloto" AS modelo_num_copiloto,
+     modelo."distancia_asiento_estandar" AS modelo_distancia_asiento_estandar,
+     modelo."distancia_aiento_densa" AS modelo_distancia_aiento_densa,
+     modelo."ancho_asiento" AS modelo_ancho_asiento,
+     modelo."longitud" AS modelo_longitud,
+     modelo."envargadura" AS modelo_envargadura,
+     modelo."altura" AS modelo_altura,
+     modelo."flecha_alar" AS modelo_flecha_alar,
+     modelo."ancho_fuselaje" AS modelo_ancho_fuselaje,
+     modelo."ancho_cabina" AS modelo_ancho_cabina,
+     modelo."alto_fuselaje" AS modelo_alto_fuselaje,
+     modelo."ancho_cabina_pasajero" AS modelo_ancho_cabina_pasajero,
+     modelo."peso_vacio" AS modelo_peso_vacio,
+     modelo."peso_max_despegue" AS modelo_peso_max_despegue,
+     modelo."peso_aterrizaje_max" AS modelo_peso_aterrizaje_max,
+     modelo."carrera_despegue_peso_max" AS modelo_carrera_despegue_peso_max,
+     modelo."volumen_carga" AS modelo_volumen_carga,
+     modelo."techo_servicio" AS modelo_techo_servicio,
+     modelo."velocidad_crucero" AS modelo_velocidad_crucero,
+     modelo."longitud_motor" AS modelo_longitud_motor,
+     modelo."empuje_velociadad_crucero" AS modelo_empuje_velociadad_crucero,
+     modelo."velecidad_max" AS modelo_velecidad_max,
+     modelo."alcance_carga_max" AS modelo_alcance_carga_max,
+     modelo."empuje_max" AS modelo_empuje_max,
+     modelo."max_combustible" AS modelo_max_combustible,
+     modelo."diametro_aspas" AS modelo_diametro_aspas,
+     modelo."empuje_unitario" AS modelo_empuje_unitario
+FROM
+     "modelo" modelo]]>
+	</queryString>
+	<field name="modelo_nombre" class="java.lang.String"/>
+	<field name="modelo_num_denasa" class="java.lang.Integer"/>
+	<field name="modelo_num_estandar" class="java.lang.Integer"/>
+	<field name="modelo_num_piloto" class="java.lang.Integer"/>
+	<field name="modelo_num_auxiliar" class="java.lang.Integer"/>
+	<field name="modelo_num_copiloto" class="java.lang.Integer"/>
+	<field name="modelo_distancia_asiento_estandar" class="java.lang.Float"/>
+	<field name="modelo_distancia_aiento_densa" class="java.lang.Float"/>
+	<field name="modelo_ancho_asiento" class="java.lang.Float"/>
+	<field name="modelo_longitud" class="java.lang.Float"/>
+	<field name="modelo_envargadura" class="java.lang.Float"/>
+	<field name="modelo_altura" class="java.lang.Float"/>
+	<field name="modelo_flecha_alar" class="java.lang.Float"/>
+	<field name="modelo_ancho_fuselaje" class="java.lang.Float"/>
+	<field name="modelo_ancho_cabina" class="java.lang.Float"/>
+	<field name="modelo_alto_fuselaje" class="java.lang.Float"/>
+	<field name="modelo_ancho_cabina_pasajero" class="java.lang.Float"/>
+	<field name="modelo_peso_vacio" class="java.lang.Float"/>
+	<field name="modelo_peso_max_despegue" class="java.lang.Float"/>
+	<field name="modelo_peso_aterrizaje_max" class="java.lang.Integer"/>
+	<field name="modelo_carrera_despegue_peso_max" class="java.lang.Float"/>
+	<field name="modelo_volumen_carga" class="java.lang.Float"/>
+	<field name="modelo_techo_servicio" class="java.lang.Float"/>
+	<field name="modelo_velocidad_crucero" class="java.lang.Float"/>
+	<field name="modelo_longitud_motor" class="java.lang.Float"/>
+	<field name="modelo_empuje_velociadad_crucero" class="java.lang.Float"/>
+	<field name="modelo_velecidad_max" class="java.lang.Float"/>
+	<field name="modelo_alcance_carga_max" class="java.lang.Float"/>
+	<field name="modelo_empuje_max" class="java.lang.Float"/>
+	<field name="modelo_max_combustible" class="java.lang.Float"/>
+	<field name="modelo_diametro_aspas" class="java.lang.Float"/>
+	<field name="modelo_empuje_unitario" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="757" y="24" width="316" height="43" uuid="b80fd4af-9633-4326-998d-9338e9872472"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Especificaciones de modelos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="10" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="177" y="11" width="114" height="32" uuid="78b79da0-4ae4-4c40-9d84-f026540783b0"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cantidad de pasajeros densa/estandar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="20" width="103" height="32" uuid="8e1a9740-24d3-4f53-9341-881d80eaa2ab"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tripulacion piloto/copilotos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="263" y="11" width="132" height="41" uuid="71771a8b-9034-44e4-9a04-39d9ff367c8a"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Distancia entre asientos Estandar/Densa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="12" width="100" height="20" uuid="4f12abe8-4832-4cd5-ae37-1c41f9a1059e"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ancho de Asiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="12" width="100" height="20" uuid="ccf7b241-9126-41b4-9789-8492e2011264"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Longitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="12" width="100" height="20" uuid="10f31386-441f-4899-a515-9d268db8b2d9"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Envergadura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="11" width="100" height="20" uuid="757bd9cd-b0ea-487d-8381-8c764adaa335"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Altura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="536" y="12" width="100" height="20" uuid="b3409132-a66c-47b0-8a78-d9dbd7d939b2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Flecha Alar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="586" y="12" width="100" height="20" uuid="54965ba5-435c-4e48-b48c-cec6b8783a84"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ancho de fuselaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="657" y="11" width="100" height="20" uuid="81a3b407-4017-4198-a6d1-54c3edc97ac7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Alto de fuselaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="719" y="11" width="100" height="21" uuid="cc97fbe7-aff4-4397-8cc1-fac727a7eddb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ancho de cabina de pasajeros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="873" y="12" width="100" height="20" uuid="ad105f8a-bd14-4433-8cc2-45f605cc9874"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Peso vacío]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="819" y="12" width="100" height="20" uuid="8c35ee86-6666-4205-ab88-f358e9369c3b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Alto de cabina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="919" y="12" width="100" height="20" uuid="9b8df53c-5c19-4837-a74f-3a1d8326d5ce"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Peso máximo de depsegue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1019" y="12" width="100" height="20" uuid="db114de7-2570-4b0f-9c94-aa5f5ed1ab62"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Peso de aterizaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1085" y="11" width="100" height="20" uuid="def22d43-9065-4b8c-a587-e13b1a8b029a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Volumen de carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1160" y="12" width="100" height="41" uuid="ba7d221e-264b-46ca-9083-b0915f768976"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Carrera de despegue con peso máximo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1260" y="11" width="100" height="20" uuid="c1cb558f-759e-4c85-83d6-2f980bd27e04"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Techo de servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1331" y="12" width="100" height="20" uuid="7e142047-1095-48a8-a424-776f422495f3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Velocidad crucero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1404" y="12" width="100" height="20" uuid="71acf594-9e3d-4096-b92f-a07757b01c6e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Velocidad Máxima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1470" y="12" width="100" height="20" uuid="09a5a76e-fde0-49e1-8f9c-4a4993080bd7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Alcance con carga máxima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1570" y="12" width="100" height="20" uuid="1ee152e7-f650-4626-badf-cbff070db896"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Empuje máximo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1636" y="12" width="100" height="20" uuid="8bf9fbcc-dfc9-42ff-ab4f-646629f8c887"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Diámetro de aspas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1710" y="12" width="100" height="20" uuid="ce4c6ae8-78cb-4fe5-b936-4784a2ef87e0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Empuje unitario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="11" width="100" height="20" uuid="c8fcef96-205d-4f5c-acf3-fde5df4d9fd1"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="177" y="0" width="100" height="20" uuid="2817e74b-6caa-4391-b4dc-0e0c42b7e9e0"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_num_denasa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="11" width="100" height="20" uuid="c26a22cf-6fcd-4b79-8897-5c3a77e5a94f"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_num_estandar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="77" y="0" width="100" height="20" uuid="d11aa9de-ff78-408b-b933-1edf38b69688"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_num_piloto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="77" y="11" width="100" height="20" uuid="efd77e7e-cba3-4363-92ec-887d7b31c496"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_num_copiloto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="263" y="11" width="100" height="20" uuid="64c67373-a008-48c6-ad81-309c3c0be724"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_distancia_aiento_densa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="77" y="20" width="100" height="20" uuid="cbe0cbf1-7778-4326-8373-3a17581ef727"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_num_auxiliar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="352" y="0" width="100" height="20" uuid="c52ee91a-cc05-4175-a666-b66bad43cf99"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_ancho_asiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="263" y="0" width="100" height="20" uuid="352da5a2-7428-411c-96e1-0b41f3cb6314"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_distancia_asiento_estandar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="100" height="20" uuid="bca01601-27f8-45a4-917d-85795622c9a5"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_longitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="100" height="20" uuid="48f08a88-6bc6-4c68-93b8-c821569e7248"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_altura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="100" height="20" uuid="dd978b8b-b97b-4f3c-9e39-81b46a5f2d72"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_envargadura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="536" y="0" width="100" height="20" uuid="65d2b5aa-1600-4db3-a835-b7a19486c82a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_flecha_alar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="586" y="0" width="100" height="20" uuid="9ba27238-9fd9-40fe-b13a-bc83ae13676b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_ancho_fuselaje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="657" y="0" width="100" height="20" uuid="ddbc3f51-1eb5-40a1-a147-fa9ed3d36492"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_alto_fuselaje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="873" y="0" width="100" height="20" uuid="30ff515a-8988-46d9-99b8-9381493bd2cc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_peso_vacio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="819" y="0" width="100" height="20" uuid="1bf4ffa3-9d2f-45a3-81c1-57f10ab7f7d9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_ancho_cabina_pasajero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="719" y="0" width="100" height="20" uuid="f1b96017-b230-422a-83bc-cac5674d5300"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_ancho_cabina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="919" y="0" width="100" height="20" uuid="4b90fe40-8401-459a-b2e1-32070ffa97cc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_peso_max_despegue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1019" y="0" width="100" height="20" uuid="137f379d-5c7c-45d2-bbe4-0e66545045cc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_peso_aterrizaje_max}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1085" y="0" width="100" height="20" uuid="77cb0bc8-1f50-4d92-bf67-665cd5054da0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_volumen_carga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1160" y="0" width="100" height="20" uuid="615a6b57-4367-478a-947c-061f79e03491"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_carrera_despegue_peso_max}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1260" y="0" width="100" height="20" uuid="7dd670f2-1491-4732-a144-208cb5403210"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_techo_servicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="1331" y="0" width="100" height="20" uuid="4e2bc216-1d75-45a7-a127-13980fd560dc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_velocidad_crucero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1404" y="0" width="100" height="20" uuid="a1c80f91-585c-4d42-90d2-82b8c1634d37"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_velecidad_max}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1470" y="0" width="100" height="20" uuid="fc98b00f-8a2f-4401-aa6c-35e54a9bea66"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_alcance_carga_max}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1570" y="0" width="100" height="20" uuid="05550564-b9b2-4bce-93dd-e1e79d1a6e3e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_empuje_max}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1636" y="0" width="100" height="20" uuid="3a8c3edd-8502-4c28-8899-192da13692c5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_diametro_aspas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1710" y="0" width="100" height="20" uuid="7bfa5176-6858-44e4-ba04-0439703d8fc5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo_empuje_unitario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="28" splitType="Stretch"/>
+	</summary>
+</jasperReport>

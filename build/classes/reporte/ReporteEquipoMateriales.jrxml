@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0b7e2994-5121-4fca-8543-6e3d624d303b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+     personal.nombre_1||' '||personal.apellido_1 AS nombre,
+     ('Meses: '||extract( Month from age(prueba.fecha_f,prueba.fecha_i) )||', Dias: '||extract( day from age(prueba.fecha_f,prueba.fecha_i) ))AS intervalo,
+     telefono."numero" AS numero,
+     personal_prueba."encargado" AS encargado,
+     personal."id" AS id,
+     personal."cedula" AS cedula,
+     lugar."nombre" AS planta,
+     prueba."id" as id_prueba
+FROM
+     "public"."prueba" prueba INNER JOIN "public"."personal_prueba" personal_prueba ON prueba."id" = personal_prueba."fk_prueba"
+     INNER JOIN "public"."personal_zona" personal_zona ON personal_prueba."fk_personal_zona" = personal_zona."id"
+     INNER JOIN "public"."personal" personal ON personal_zona."fk_personal" = personal."id"
+     INNER JOIN "public"."zona" zona ON personal_zona."fk_zona" = zona."id"
+     INNER JOIN "public"."planta" planta ON zona."fk_planta" = planta."id"
+     INNER JOIN "public"."lugar" lugar ON planta."fk_lugar" = lugar."id"
+     INNER JOIN "public"."telefono" telefono ON personal."id" = telefono."fk_personal"
+     INNER JOIN "public"."estatus" estatus ON prueba."fk_estatus" = estatus."id"
+WHERE
+     estatus."nombre" = 'satisfactorio' and prueba."id"=(select p.id
+                                                        from prueba p
+                                                        where (p.fecha_f-p.fecha_i)=(select MIN(p.fecha_f-p.fecha_i) from prueba p)
+                                                        order by p.id
+                                                        limit 1)
+ORDER BY
+     encargado desc]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="intervalo" class="java.lang.String"/>
+	<field name="numero" class="java.math.BigDecimal"/>
+	<field name="encargado" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="cedula" class="java.lang.Integer"/>
+	<field name="planta" class="java.lang.String"/>
+	<field name="id_prueba" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="31b3c0c3-a94a-4d4c-83fe-369eec06cb60"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Equipo mas eficiente]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="68">
+			<staticText>
+				<reportElement x="14" y="0" width="44" height="20" uuid="a278949a-842f-459b-96e0-ca655312d830"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Planta: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="20" width="80" height="20" uuid="a4cfdb48-c2d4-49be-839b-a0c846699714"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID de prueba:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="40" width="113" height="20" uuid="52a32d47-7225-4ec8-b184-32867a303c62"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo de prueba:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="127" y="40" width="125" height="15" uuid="79cb9ecd-3fa4-430c-95b7-46b86398896a"/>
+				<textFieldExpression><![CDATA[""+$F{intervalo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="94" y="20" width="69" height="15" uuid="c0d8c3e3-2b92-42df-ba73-375a36e6ff16"/>
+				<textFieldExpression><![CDATA[$F{id_prueba}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="58" y="0" width="69" height="15" uuid="47a73426-7072-4541-8ef1-e66b15413c7c"/>
+				<textFieldExpression><![CDATA[$F{planta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="ceed6112-3093-4ed6-97f1-7b4379bb540b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="fb3dee97-e82a-4ffb-b2ae-05197633c44b"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="69" y="21" width="103" height="15" uuid="e1685d7d-fa8e-423e-b207-f2d7cec97c62"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="172" y="21" width="117" height="15" uuid="e6426b0c-d82c-4437-b956-0318020da92a"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="289" y="21" width="131" height="15" uuid="95a7499d-31bd-4f26-9102-8bd5b13c78c3"/>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="420" y="21" width="135" height="15" uuid="f58847e8-3192-40d1-a5fd-899d4353db29"/>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="88a5b1c4-6326-4eae-b36f-3476e9c0320e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="69" height="15" uuid="b7870b93-8827-4bb0-90be-6b49d113fdf3"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="69" y="0" width="103" height="15" uuid="85783f97-3380-4f93-8eac-aae5d6315ad4"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="172" y="1" width="117" height="15" uuid="7f7569de-3abd-4c36-bde3-aafc1ed5f066"/>
+				<textFieldExpression><![CDATA[$F{encargado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="289" y="1" width="131" height="15" uuid="a4d1be0a-1e33-440a-87b1-cac3a903fa22"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="420" y="1" width="133" height="15" uuid="ff7ed6cb-e797-45c8-b1e8-1198630cadef"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="4d329fc1-da34-4867-9bf8-c77b96b15caa"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="01575f12-8eca-4ca2-80e9-09d8f28ecf99"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="257d611e-9d03-4345-aeb1-dd7381880715"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="2a244a51-cd1a-4ea1-b2e6-c8092bb79d2a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

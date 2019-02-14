@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3fe96403-8cd3-4c85-889d-070bead41c38">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select pie.tipo tipo_pieza,pie.nombre nombre_pieza,avg ((extract(month from age(ense.fecha_f,ense.fecha_i)))+1) promedio_meses,count(ense.id) cantidad
+from ensamblaje_pieza ense,avion_pieza avi_pie,pieza pie,estatus s
+where ense.fk_avion_pieza=avi_pie.id and avi_pie.fk_pieza=pie.id  and 
+      ense.fk_estatus=s.id and s.nombre='proceso'
+group by pie.tipo,pie.nombre
+union
+select pier.tipo tipo_pieza,pier.nombre nombre_pieza,
+     avg((extract(month from age(ense.fecha_f,ense.fecha_i)))+(extract(month from age(pru.fecha_f,pru.fecha_i))))
+     promedio_meses,count(ense.id) cantidad
+from ensamblaje_pieza ense,pieza_armada pier,prueba pru,estatus s
+where pier.fk_ensamblaje_pieza=ense.id and pru.fk_pieza_armada=pier.id and pru.fk_estatus=s.id
+      and s.nombre='satisfactorio'
+group by pier.tipo,pier.nombre]]>
+	</queryString>
+	<field name="tipo_pieza" class="java.lang.String"/>
+	<field name="nombre_pieza" class="java.lang.String"/>
+	<field name="promedio_meses" class="java.lang.Double"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="27" y="0" width="493" height="39" uuid="ff76e550-7b49-4de6-a3cc-58cf32f4c90f"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Promedio de Producción Mensual en Piezas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="6c6ed3f8-b9fe-4f77-b637-55a2de13e8df"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="f788b1ca-89e9-410d-8c42-207c35520832"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de la Pieza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="0" width="100" height="20" uuid="6893488b-1d55-4ee1-a0fc-0e3f5dd5b5e3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio en Meses]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="0" width="100" height="20" uuid="9d62bc4a-35f1-4adb-9943-0cf27190d438"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Piezas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="378bf79a-9bb9-4951-8ad4-78206cd23d1a"/>
+				<textFieldExpression><![CDATA[$F{tipo_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="7fd88fe7-a4f9-4a7e-8bd8-81cccd4bdece"/>
+				<textFieldExpression><![CDATA[$F{nombre_pieza}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="234" y="0" width="23" height="20" uuid="a97aac4f-0b40-4679-bb55-06e68ea7f821"/>
+				<textFieldExpression><![CDATA[$F{promedio_meses}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="347" y="0" width="100" height="20" uuid="47ecc8ef-b934-4975-bc3b-0a9f41aa705b"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="34" width="49" height="20" uuid="506a8cd7-069f-41ca-b508-2528c4b9b07c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="34" width="45" height="20" uuid="8aa5946b-0d36-4e63-9c65-1e6818caba85"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="510" y="34" width="45" height="20" uuid="bcac3862-0ca1-43a7-9454-efd53583f856"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

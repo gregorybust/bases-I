@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d6f5c6c-5144-4685-ac1f-245b002196f4">
+	<property name="ireport.zoom" value="0.7513148009015778"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="76"/>
+	<queryString>
+		<![CDATA[SELECT
+     historia."pagina",
+     historia."pagina"
+FROM
+     "historia" historia]]>
+	</queryString>
+	<field name="pagina" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="126" y="0" width="291" height="42" uuid="ef9b9c6e-b1de-48bb-99be-3e4033be669b"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Historia de la aeronáutica]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="9" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="677" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="39" width="555" height="596" uuid="02a265c5-122f-423f-9cbe-8d55ef718a75"/>
+				<textFieldExpression><![CDATA[$F{pagina}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="11" splitType="Stretch"/>
+	</summary>
+</jasperReport>
